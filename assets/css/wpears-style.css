@@ -1,0 +1,30 @@
+#rainbow_product_loader {
+	height: 450px;
+	width: 100%;
+	background-color: #fff;
+	position: relative;
+}
+
+#rainbow_pd_load_img {
+	height: 40px;
+	width: 40px;
+	background: url(../img/wpears_loader.gif) no-repeat;
+	background-size: cover;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+/* widget style */
+.wpears-widget ul li:before {
+    content: '';
+    display: inline-block;
+    background-image: url(../img/wpears_checkbox.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+}
