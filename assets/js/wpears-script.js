@@ -43,6 +43,25 @@
 
 	});
 
+	//on click filter checkbox show/hide
+	$('.wpears-widget ul li a').on('click', function(e) {
+		e.preventDefault();
+		$(this).parent('.wpears-widget ul li').toggleClass('check_select');
+	});
+
+
+	//url parser
+	var vars = {}, hash;
+	url = 'http://localhost/wootest/shop/?product-cata=26&attra-color=21';
+	var hashes = url.slice(url.indexOf('?') + 1).split('&');
+	console.log( hashes );
+	for (var i = 0; i < hashes.length; i++) {
+	        hash = hashes[i].split('=');
+	        vars[hash[0]] = hash[1];
+	    }
+	    console.log(vars);
+	
+
 	//Ajax category filter 
 	$('[data-rainbow="category"]').on('click',function(e){
 		e.preventDefault();

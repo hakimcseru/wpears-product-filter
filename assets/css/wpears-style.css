@@ -27,4 +27,8 @@
     width: 10px;
     margin-right: 5px;
     border: 1px solid #ccc;
+} 
+
+.wpears-widget ul li.check_select:before {
+	background-position: bottom center;
 }

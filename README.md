@@ -1,1 +1,0 @@
-# wpears-product-filter
