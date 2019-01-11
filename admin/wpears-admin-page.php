@@ -99,9 +99,9 @@ function main_page(){
            if( class_exists('WC_Query') &&  method_exists('WC_Query', 'product_query') ) {
 
            	echo $result = wc()->query->product_query($wp_query);
-            echo "<pre>";
-            print_r( $result );
-            echo "</pre>";
+            // echo "<pre>";
+            // print_r( $result );
+            // echo "</pre>";
             
         	}
 

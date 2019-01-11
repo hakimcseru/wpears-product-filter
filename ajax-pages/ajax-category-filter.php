@@ -7,17 +7,37 @@ function filterby_category(){
 	$pcategory = $_POST['pcategory'];
 
 	//custom query with passing product category
-	$wp_query = new WP_Query( array(
-	   'post_type'      => array('product'),
-	   'post_status'    => 'publish',
-	   'posts_per_page' => -1,
-	   'tax_query'      => array( array(
-	        'taxonomy'        => 'product_cat',
-	        'field'           => 'term_id',
-	        'terms'           =>  array($pcategory),
-	        'operator'        => 'IN',
-	    ) )
-	) );
+	// $wp_query = new WP_Query( array(
+	//    'post_type'      => array('product'),
+	//    'post_status'    => 'publish',
+	//    'posts_per_page' => -1,
+	//    'tax_query'      => array( array(
+	//         'taxonomy'        => 'product_cat',
+	//         'field'           => 'term_id',
+	//         'terms'           =>  array($pcategory),
+	//         'operator'        => 'IN',
+	//     ) )
+	// ) );
+
+    
+    //multiple query test
+    $wp_query = new WP_Query( array(
+       'post_type'      => array('product'),
+       'post_status'    => 'publish',
+       'posts_per_page' => -1,
+       'tax_query'      => array( 
+            'relation' => 'AND',
+            array(
+                'taxonomy'        => 'pa_color',
+                'field'           => 'slug',
+                'terms'           =>  array($prod_c),
+            ),array(
+                'taxonomy'        => 'product_cat',
+                'field'           => 'term_id',
+                'terms'           =>  array($categ),
+            ), 
+        )
+    ) );
 
 	// set query in woocommerce
 	if( class_exists('WC_Query') &&  method_exists('WC_Query', 'product_query') ) {

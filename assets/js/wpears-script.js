@@ -30,6 +30,8 @@
 	$('[data-rainbowTerm="term"]').on('click',function(e){
 		e.preventDefault();
 		var productTerm = $(this).text().toLowerCase();
+
+
 		
 		//set product term and ajax method
 		var pinfo = {
@@ -47,25 +49,31 @@
 	$('.wpears-widget ul li a').on('click', function(e) {
 		e.preventDefault();
 		$(this).parent('.wpears-widget ul li').toggleClass('check_select');
+
+		
+		var pro_cat = $(this).data('value');
+		history.pushState({}, '', '?product-category='+pro_cat+'&prod-color=blue');
 	});
 
 
 	//url parser
-	var vars = {}, hash;
-	url = 'http://localhost/wootest/shop/?product-cata=26&attra-color=21';
-	var hashes = url.slice(url.indexOf('?') + 1).split('&');
-	console.log( hashes );
-	for (var i = 0; i < hashes.length; i++) {
-	        hash = hashes[i].split('=');
-	        vars[hash[0]] = hash[1];
-	    }
-	    console.log(vars);
+	// var vars = {}, hash;
+	// url = 'http://localhost/wootest/shop/?product-cata=26&attra-color=21';
+	// var hashes = url.slice(url.indexOf('?') + 1).split('&');
+	// console.log( hashes );
+	// for (var i = 0; i < hashes.length; i++) {
+	//         hash = hashes[i].split('=');
+	//         vars[hash[0]] = hash[1];
+	//     }
+	// console.log(vars);
+	//history.pushState({}, '', '?product-category=24&prod-color=blue');
 	
 
 	//Ajax category filter 
 	$('[data-rainbow="category"]').on('click',function(e){
 		e.preventDefault();
 		var productCategory = $(this).attr('data-rainbowcategoryid');
+
 		
 		//set product category and ajax method
 		var pCategoryInfo = {
@@ -76,6 +84,24 @@
 		$.post(ajax_url, pCategoryInfo, function(msg) {
 			$("#main").html(msg.rainbow_cat_content.products);
 		},'json');
+
+		//display product loader
+		$("#main .products").html(`
+			<div id="rainbow_product_loader">
+				<div id="rainbow_pd_load_img"></div>
+			<div>`
+		);
+
+		$('#rainbow_product_loader').show();
+
+		$.get(window.location.href, function(data) {
+			var $data = jQuery(data),
+				shop_loop = $data.find(".wcapf-before-products");
+				//not_found = $data.find(wcapf_params.not_found_container);
+			var product_wrapper = shop_loop.html();
+
+			$(".wcapf-before-products").html(product_wrapper);
+		});
 
 	});
 
