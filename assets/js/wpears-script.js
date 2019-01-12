@@ -96,8 +96,10 @@
 		        hash = hashes[i].split('=');
 		        url_params[hash[0]] = hash[1];
 		    }
-var new_location='';
-var has_before=false;
+
+		var new_location = '';
+		var has_before 	 =  false;
+
 		if(hashes.length)
 		{
 		
@@ -153,9 +155,8 @@ var has_before=false;
 			}
 		//history.pushState({}, '', '?' + filter_key + '='+ filter_value);
 		});
-	}
-		else {
-//history.pushState({}, '', '?' + filter_key + '='+ filter_value);
+	}else {
+		//history.pushState({}, '', '?' + filter_key + '='+ filter_value);
 		}
 		if(new_location)
 		{
@@ -201,55 +202,66 @@ var has_before=false;
 			<div>`
 		);
 
-		$('#rainbow_product_loader').show();
+		//if(product_wrap.length) {
+			$('#rainbow_product_loader').show();
+		//}else{
 
+		//}
+		var product_wrap = ".wpears_product_wrapper";
+		console.log(product_wrap.length);
 		$.get(window.location.href, function(data) {
 			var $data = jQuery(data),
-				shop_loop = $data.find(".wpears_product_wrapper");
+				shop_loop = $data.find(product_wrap);
+			var hasProductWrapper = shop_loop.length;
 				//not_found = $data.find(wcapf_params.not_found_container);
 			var product_wrapper = shop_loop.html();
-
-			$(".wpears_product_wrapper").html(product_wrapper);
+			
+			if(hasProductWrapper == '0') {
+				$('#rainbow_product_loader').hide();
+				$(product_wrap).html('<h1 style="color:red">No Product Found!</h1>');
+			}
+			$(product_wrap).html(product_wrapper);
+			
 		});
 	});
 
 	
 
 	//Ajax category filter 
-	$('[data-rainbow="category"]').on('click',function(e){
-		e.preventDefault();
-		//var productCategory = $(this).attr('data-rainbowcategoryid');
+	// $('[data-rainbow="category"]').on('click',function(e){
+	// 	e.preventDefault();
+	// 	//var productCategory = $(this).attr('data-rainbowcategoryid');
 
 		
-		//set product category and ajax method
-		// var pCategoryInfo = {
-		// 			action: 'filterby_category',
-  //                   pcategory: productCategory,	                    
-  //               };
+	// 	//set product category and ajax method
+	// 	// var pCategoryInfo = {
+	// 	// 			action: 'filterby_category',
+ //  //                   pcategory: productCategory,	                    
+ //  //               };
 
-		// $.post(ajax_url, pCategoryInfo, function(msg) {
-		// 	$("#main").html(msg.rainbow_cat_content.products);
-		// },'json');
+	// 	// $.post(ajax_url, pCategoryInfo, function(msg) {
+	// 	// 	$("#main").html(msg.rainbow_cat_content.products);
+	// 	// },'json');
 
-		//display product loader
-		$("#main .products").html(`
-			<div id="rainbow_product_loader">
-				<div id="rainbow_pd_load_img"></div>
-			<div>`
-		);
+	// 	//display product loader
+	// 	$("#main .products").html(`
+	// 		<div id="rainbow_product_loader">
+	// 			<div id="rainbow_pd_load_img"></div>
+	// 		<div>`
+	// 	);
 
-		$('#rainbow_product_loader').show();
+	// 	$('#rainbow_product_loader').show();
 
-		$.get(window.location.href, function(data) {
-			var $data = jQuery(data),
-				shop_loop = $data.find(".wpears_product_wrapper");
-				//not_found = $data.find(wcapf_params.not_found_container);
-			var product_wrapper = shop_loop.html();
+	// 	$.get(window.location.href, function(data) {
+	// 		var $data = jQuery(data),
+	// 			shop_loop = $data.find(".wpears_product_wrapper");
+	// 			//not_found = $data.find(wcapf_params.not_found_container);
+	// 		var product_wrapper = shop_loop.html();
 
-			$(".wpears_product_wrapper").html(product_wrapper);
-		});
+	// 		$(".wpears_product_wrapper").html(product_wrapper);
+	// 	});
 
-	});
+	// });
 
 	/* Ajax Price Filter */ 
 

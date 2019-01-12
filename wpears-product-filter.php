@@ -97,6 +97,7 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 				        );
 		    }else {
 		    	//$tax_query[] = array();
+		    	
 		    }
 
 		    $q->set( 'tax_query', $tax_query );
