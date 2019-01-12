@@ -45,23 +45,61 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 			add_action( 'plugins_loaded', array(&$this, 'wpears_plugin_startup') ,9999);
 			add_action( 'wp_head',  array(&$this,'wpears_add_admin_ajax') );
     		add_action( 'pre_get_posts', array(&$this, 'filter_get_posts') );
+    		add_action('woocommerce_before_shop_loop', array(&$this, 'beforeProductLoop'), 0);
+    		add_action('woocommerce_after_shop_loop', array(&$this, 'afterProductLoop'), 200);
+		}
+
+		//add wrapper-start before product loop
+		function beforeProductLoop() {
+			echo '<div class="wpears_product_wrapper">';
+		}
+
+
+		//add wrapper-end after product loop
+		function afterProductLoop() {
+			echo '</div>';
 		}
 
 		//filter by tax query
 		function filter_get_posts($q) {
-			$categ      = $_GET['product-category'];
+			$pro_cat      = $_GET['product-category'];
+			$pro_term     = $_GET['product-term'];
+
 		    $tax_query = (array) $q->get( 'tax_query' );
 
-		    if( isset($categ) ){
+		    if( isset($pro_cat) && !isset($pro_term) ){
 		    	$tax_query[] = array(
 		               'taxonomy' => 'product_cat',
 		               'field' => 'term_id',
-		               'terms' => array( $categ ), // Don't display products in the clothing category on the shop page.
+		               'terms' => array( $pro_cat ), // Don't display products in the clothing category on the shop page.
 		               'operator' => 'IN'
 		        );
 
-		        $q->set( 'tax_query', $tax_query );
+		    }elseif( isset($pro_term) && !isset($pro_cat) ) {
+		    		$tax_query[] = array(
+		    	           'taxonomy' => 'pa_color',
+		    	           'field' => 'slug',
+		    	           'terms' => array( $pro_term ), // Don't display products in the clothing category on the shop page.
+		    	           'operator' => 'IN'
+		    	    );
+		    }elseif( isset($pro_cat) && isset($pro_term) ) {
+		    		$tax_query[] = array( 
+		    				'relation' => 'AND',
+				            array(
+				                'taxonomy'        => 'pa_color',
+				                'field'           => 'slug',
+				                'terms'           =>  array($pro_term),
+				            ),array(
+				                'taxonomy'        => 'product_cat',
+				                'field'           => 'term_id',
+				                'terms'           =>  array($pro_cat),
+				            )
+				        );
+		    }else {
+		    	//$tax_query[] = array();
 		    }
+
+		    $q->set( 'tax_query', $tax_query );
 		}
 			
 		// dependency plugin notice

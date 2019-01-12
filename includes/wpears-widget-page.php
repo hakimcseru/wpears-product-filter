@@ -45,7 +45,7 @@ if ( ! class_exists( 'wpears_widget' ) ) {
 					<?php
 						foreach ( $attributes as $attribute ) { ?>
 							<li>
-								<a href="" data-rainbowTerm="term" data-atribute="<?php echo $attribute->name; ?>"><?php echo $attribute->name; ?></a>
+								<a href="" data-filterby="term" data-value="<?php echo $attribute->name; ?>"  data-WpearsTerm="term" data-Wpearsatribute="<?php echo $attribute->name; ?>"><?php echo $attribute->name; ?></a>
 							</li>
 						
 					<?php } //end loop ?>
