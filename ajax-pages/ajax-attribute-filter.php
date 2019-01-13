@@ -24,9 +24,9 @@ function filterby_term(){
     //http://localhost/wootest/wp-json/wc/v3/products?attribute=pa_color&attribute_term=17
     $apiResult = $woocommerce->get('http://localhost/wootest/wp-json/wc/v3/products?attribute=pa_color&attribute_term=17');
 
-    echo "<pre>";
-    print_r( $apiResult );
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r( $apiResult );
+    // echo "</pre>";
     
 
 	// set query in woocommerce

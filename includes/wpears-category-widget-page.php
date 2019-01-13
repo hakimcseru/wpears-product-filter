@@ -62,7 +62,7 @@ if ( ! class_exists( 'wpears_category_widget' ) ) {
 					<?php
 						foreach ( $all_categories as $cat ) { ?>
 							<li>
-								<a href="javascript:void(0)" data-prop="wpear-cat" data-value="<?php echo $cat->term_id; ?>" data-rainbow="category" data-rainbowCategoryID="<?php echo $cat->term_id; ?>"><?php echo $cat->name; ?></a>
+								<a href="javascript:void(0)" data-filterby="category" data-prop="wpear-cat" data-value="<?php echo $cat->term_id; ?>" data-rainbow="category" data-rainbowCategoryID="<?php echo $cat->term_id; ?>"><?php echo $cat->name; ?></a>
 							</li>
 						
 					<?php } //end loop ?>

@@ -4,14 +4,14 @@ if( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // exit if directly access
 
-if ( ! class_exists( 'wpears_widget' ) ) {
-	class wpears_widget extends WP_Widget{
+if ( ! class_exists( 'wpears_size_widget' ) ) {
+	class wpears_size_widget extends WP_Widget{
 		function __construct(){
 			add_action( 'widgets_init', array(&$this,'wpears_custom_widget') );
 			parent::__construct(
-				'wpearsWidget',
-				__('Wpears Widget', 'wpears'),
-				__('Wpears Widget Description', 'wpears')
+				'wpearsSizeWidget',
+				__('Wpears Size Widget', 'wpears'),
+				__('Wpears Size Widget Description', 'wpears')
 			);
 		}
 
@@ -36,7 +36,7 @@ if ( ! class_exists( 'wpears_widget' ) ) {
 				echo $args['after_title'];
 				global $product;
 				// Get product attributes
-				$attributes = get_terms( 'pa_color' );
+				$attributes = get_terms( 'pa_size' );
 				
 				?>
 
@@ -58,7 +58,7 @@ if ( ! class_exists( 'wpears_widget' ) ) {
 		}
 
 		function wpears_custom_widget(){
-			register_widget('wpears_widget');
+			register_widget('wpears_size_widget');
 		}
 	}
 }
