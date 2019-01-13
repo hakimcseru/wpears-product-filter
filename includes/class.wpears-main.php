@@ -21,11 +21,13 @@ if( ! class_exists( 'wpears_Main' ) ){
 			include_once('wpears-price-widget-page.php' );
 			include_once('wpears-sorting-page.php' );
 			include_once('wpears-size-widget-page.php' );
+			include_once('wpears-color-widget-page.php' );
 			new wpears_widget();
 			new wpears_category_widget();
 			new wpears_price_widget();
 			new wpears_sorting_widget();
 			new wpears_size_widget();
+			new wpears_color_widget();
 		}
 	}
 
