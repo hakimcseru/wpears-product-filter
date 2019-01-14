@@ -51,6 +51,7 @@
 
 	// check and update url
 	function updateUrl(filter_key,filter_value) {
+		alert(filter_key);
  		
 		var winLocation = window.location.href;
 		url = winLocation;
@@ -147,11 +148,11 @@
 		var filter_by = $(this).data('filterby');
 
 		if( filter_by == "category" ) {
-			var data_key = 'product-category';
+			var data_key = 'product_category';
 			var data_val = $(this).data('value');
 			updateUrl(data_key,data_val);
 		}else if( filter_by == "term" ) {
-			var data_key = 'product-term';
+			var data_key = 'product_term';
 			var data_val = $(this).data('value');
 				data_val = data_val.toLowerCase();
 			updateUrl(data_key,data_val);
@@ -159,6 +160,10 @@
 			var data_key = 'orderby';
 			var data_val = $(this).data('value');
 				data_val = data_val.toLowerCase();
+			updateUrl(data_key,data_val);
+		}else if( filter_by == "tag" ) {
+			var data_key = 'product_tag';
+			var data_val = $(this).data('value');
 			updateUrl(data_key,data_val);
 		}else {
 			console.log('no filter yet!');

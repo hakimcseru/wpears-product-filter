@@ -62,13 +62,14 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 
 		//filter by tax query
 		function filter_get_posts($q) {
-			$pro_cat      = $_GET['product-category'];
-			$pro_term     = $_GET['product-term'];
+			$pro_cat      = $_GET['product_category'];
+			$pro_tag      = $_GET['product_tag'];
+			$pro_term     = $_GET['product_term'];
 			$orderby      = $_GET['orderby'];
 
 		    $tax_query = (array) $q->get( 'tax_query' );
 
-		    if( isset($pro_cat) && !isset($pro_term) && !isset($orderby)){
+		    if( isset($pro_cat) && !isset($pro_term) && !isset($orderby) && !isset($pro_tag) ){
 		    	$tax_query[] = array(
 		               'taxonomy' => 'product_cat',
 		               'field' => 'term_id',
@@ -76,14 +77,14 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 		               'operator' => 'IN'
 		        );
 
-		    }elseif( isset($pro_term) && !isset($pro_cat) && !isset($orderby) ) {
+		    }elseif( isset($pro_term) && !isset($pro_cat) && !isset($orderby) && !isset($pro_tag) ) {
 	    		$tax_query[] = array(
 	    	           'taxonomy' => 'pa_color',
 	    	           'field' => 'slug',
 	    	           'terms' => array( $pro_term ), // Don't display products in the clothing category on the shop page.
 	    	           'operator' => 'IN'
 	    	    );
-		    }elseif( isset($pro_cat) && isset($pro_term) && !isset($orderby) ) {
+		    }elseif( isset($pro_cat) && isset($pro_term) && !isset($orderby) && !isset($pro_tag) ) {
 	    		$tax_query[] = array( 
 	    				'relation' => 'AND',
 			            array(
@@ -94,6 +95,14 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 			                'taxonomy'        => 'product_cat',
 			                'field'           => 'term_id',
 			                'terms'           =>  array($pro_cat),
+			            )
+			        );
+		    }elseif( isset($pro_tag) && !isset($pro_term) && !isset($orderby) && !isset($pro_cat) ) {
+	    		$tax_query[] = array( 
+			            array(
+			                'taxonomy'        => 'product_tag',
+			                'field'           => 'term_id',
+			                'terms'           =>  array($pro_tag),
 			            )
 			        );
 		    }elseif( isset($orderby) ) {
