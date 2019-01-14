@@ -62,7 +62,7 @@ if ( ! class_exists( 'wpears_tag_widget' ) ) {
 					<?php
 						foreach ( $all_tags as $tag ) { ?>
 							<li>
-								<a href="javascript:void(0)" data-filterby="tag" data-prop="wpear-tag" data-value="<?php echo $tag->term_id; ?>" data-rainbow="tag" data-rainbowTagID="<?php echo $tag->term_id; ?>"><?php echo $tag->name; ?></a>
+								<a href="javascript:void(0)" data-filterby="tag" data-prop="wpear-tag" data-value="<?php echo $tag->name; ?>" data-rainbow="tag" data-rainbowTagID="<?php echo $tag->term_id; ?>"><?php echo $tag->name; ?></a>
 							</li>
 						
 					<?php } //end loop ?>
