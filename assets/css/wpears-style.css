@@ -17,7 +17,7 @@
 }
 
 /* widget style */
-.wpears-widget ul li:before {
+.wpears-widget ul li a:before {
     content: '';
     display: inline-block;
     background-image: url(../img/wpears_checkbox.png);
@@ -27,8 +27,36 @@
     width: 10px;
     margin-right: 5px;
     border: 1px solid #ccc;
+}
+#wpears-sorting-product ul li a:before {
+    content: '';
+    display: inline-block;
+    background-image: url(../img/wpears_radio.png) !important;
+    background-repeat: no-repeat;
+    background-position: top center;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
 } 
 
-.wpears-widget ul li.check_select:before {
+#wpears-sorting-product ul li.check_select a:before {
 	background-position: bottom center;
+}
+
+.wpears-widget ul li.check_select a:before {
+	background-position: bottom center;
+}
+
+
+.wpears-color-widget {
+	overflow: hidden;
+}
+.wpears-color-widget ul li a:before {
+	background-image: none;
+	display: none;
+}
+.wpears-color-widget ul li {
+	width: 30px;height: 30px;display: inline;float: left;margin: 0 2px;
 }

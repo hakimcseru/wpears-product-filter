@@ -62,12 +62,14 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 
 		//filter by tax query
 		function filter_get_posts($q) {
-			$pro_cat      = $_GET['product-category'];
-			$pro_term     = $_GET['product-term'];
+			$pro_cat      = $_GET['product_category'];
+			$pro_tag      = $_GET['product_tag'];
+			$pro_term     = $_GET['product_term'];
+			$orderby      = $_GET['orderby'];
 
 		    $tax_query = (array) $q->get( 'tax_query' );
 
-		    if( isset($pro_cat) && !isset($pro_term) ){
+		    if( isset($pro_cat) && !isset($pro_term) && !isset($orderby) && !isset($pro_tag) ){
 		    	$tax_query[] = array(
 		               'taxonomy' => 'product_cat',
 		               'field' => 'term_id',
@@ -75,29 +77,62 @@ if ( ! class_exists( 'wpears_product_filter' ) ) {
 		               'operator' => 'IN'
 		        );
 
-		    }elseif( isset($pro_term) && !isset($pro_cat) ) {
-		    		$tax_query[] = array(
-		    	           'taxonomy' => 'pa_color',
-		    	           'field' => 'slug',
-		    	           'terms' => array( $pro_term ), // Don't display products in the clothing category on the shop page.
-		    	           'operator' => 'IN'
-		    	    );
-		    }elseif( isset($pro_cat) && isset($pro_term) ) {
-		    		$tax_query[] = array( 
-		    				'relation' => 'AND',
-				            array(
-				                'taxonomy'        => 'pa_color',
-				                'field'           => 'slug',
-				                'terms'           =>  array($pro_term),
-				            ),array(
-				                'taxonomy'        => 'product_cat',
-				                'field'           => 'term_id',
-				                'terms'           =>  array($pro_cat),
-				            )
-				        );
+		    }elseif( isset($pro_term) && !isset($pro_cat) && !isset($orderby) && !isset($pro_tag) ) {
+	    		$tax_query[] = array(
+	    	           'taxonomy' => 'pa_color',
+	    	           'field' => 'slug',
+	    	           'terms' => array( $pro_term ), // Don't display products in the clothing category on the shop page.
+	    	           'operator' => 'IN'
+	    	    );
+		    }elseif( isset($pro_cat) && isset($pro_term) && !isset($orderby) && !isset($pro_tag) ) {
+	    		$tax_query[] = array( 
+	    				'relation' => 'AND',
+			            array(
+			                'taxonomy'        => 'pa_color',
+			                'field'           => 'slug',
+			                'terms'           =>  array($pro_term),
+			            ),array(
+			                'taxonomy'        => 'product_cat',
+			                'field'           => 'term_id',
+			                'terms'           =>  array($pro_cat),
+			            )
+			        );
+		    }elseif( isset($pro_tag) && !isset($pro_term) && !isset($orderby) && !isset($pro_cat) ) {
+	    		$tax_query[] = array( 
+			            array(
+			                'taxonomy'        => 'product_tag',
+			                'field'           => 'term_id',
+			                'terms'           =>  array($pro_tag),
+			            )
+			        );
+		    }elseif( isset($orderby) ) {
+	    		if( $orderby == 'newest' ) {
+					$q->set( 'orderby', 'date' );
+    		        $q->set( 'order', 'DESC' );     
+				}elseif( $orderby == 'most-popular' ) {
+					$q->set( 'meta_key', '_wc_review_count' );
+    		        $q->set( 'orderby', 'meta_value_num' );     
+    		        $q->set( 'order', 'DESC' );
+    		    }elseif( $orderby == 'most-purchased' ) {
+					$q->set( 'meta_key', 'total_sales' );
+    		        $q->set( 'orderby', 'meta_value_num' );
+    		    }elseif( $orderby == 'pricelh' ) {
+					$q->set( 'meta_key', '_price' );
+    		        $q->set( 'orderby', 'meta_value_num' );     
+    		        $q->set( 'order', 'asc' );
+    		    }elseif( $orderby == 'pricehl' ) {
+					$q->set( 'meta_key', '_price' );
+    		        $q->set( 'orderby', 'meta_value_num' );     
+    		        $q->set( 'order', 'desc' );
+    		    }elseif( $orderby == 'avarrat' ) {
+					$q->set( 'meta_key', '_wc_average_rating' );
+    		        $q->set( 'orderby', 'meta_value_num' );     
+    		        $q->set( 'order', 'desc' );
+    		    }else {
+
+    		    }
 		    }else {
-		    	//$tax_query[] = array();
-		    	
+
 		    }
 
 		    $q->set( 'tax_query', $tax_query );

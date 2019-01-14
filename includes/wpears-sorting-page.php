@@ -36,18 +36,33 @@ if ( ! class_exists( 'wpears_sorting_widget' ) ) {
 				
 				?>
 
-				<div class="wpears-widget">
-					<select class="widefat" name="" id="rainbow-sorting-product">
-						<option value="">Sort product</option>
-						<option value="newest">Newest</option>
-						<option value="most-popular">Most Popular</option>
-						<option value="most-purchased">Most Purchased</option>
-						<option value="priceLH">Price: Low to High</option>
-						<option value="priceHL">Price: High to Low</option>
-						<option value="avarRat">Avarage Rating</option>
-						<option value="shipping">Shipping</option>
-						<option value="topRatSel">Top Rated Seller</option>
-					</select>
+				<div class="wpears-widget" id="wpears-sorting-product">
+ 					<ul>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="newest">Newest</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="most-popular">Most Popular</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="most-purchased">Most Purchased</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="priceLH">Price: Low to High</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="priceHL">Price: High to Low</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="avarRat">Avarage Rating</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="shipping">Shipping</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" data-filterby="sorting" data-value="topRatSel">Top Rated Seller</a>
+						</li>
+					</ul>
 					
 				</div>
 
